@@ -9,8 +9,6 @@ class SearchPlaces extends Component {
     constructor() {
         super();
 
-        this.state = { coordinates: null };
-
         this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
     }
 
@@ -28,26 +26,27 @@ class SearchPlaces extends Component {
 
             //save to redux state
             this.props.setCoordinates(coordinates);
-            this.setState({ coordinates });
         });
     }
 
     render() {
-        const { open } = this.state;
-
+        const { address } = this.props;
+        console.log('address render', address);
         return (
             <div style={{ position: 'relative' }}>
                 <MUIPlacesAutocomplete
                     onSuggestionSelected={this.onSuggestionSelected}
                     renderTarget={() => <div />}
                 />
+                <Typography variant="h6">Address : {address}</Typography>
             </div>
         );
     }
 }
 function mapStateToProps(state) {
     return {
-        feed: state.weather.coord
+        coord: state.weather.coord,
+        address: state.weather.address
     };
 }
 export default connect(
