@@ -25,7 +25,7 @@ export default class SearchPlaces extends Component {
             };
 
             //save to redux state
-            this.setState({ open: true, coordinates });
+            this.setState({ coordinates });
         });
     }
 
