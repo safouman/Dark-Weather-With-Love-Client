@@ -3,7 +3,9 @@ import Typography from '@material-ui/core/Typography';
 import MUIPlacesAutocomplete, {
     geocodeBySuggestion
 } from 'mui-places-autocomplete';
-export default class SearchPlaces extends Component {
+import { connect } from 'react-redux';
+import * as actions from '../actions';
+class SearchPlaces extends Component {
     constructor() {
         super();
 
@@ -25,6 +27,7 @@ export default class SearchPlaces extends Component {
             };
 
             //save to redux state
+            this.props.setCoordinates(coordinates);
             this.setState({ coordinates });
         });
     }
@@ -33,7 +36,7 @@ export default class SearchPlaces extends Component {
         const { open } = this.state;
 
         return (
-            <div>
+            <div style={{ position: 'relative' }}>
                 <MUIPlacesAutocomplete
                     onSuggestionSelected={this.onSuggestionSelected}
                     renderTarget={() => <div />}
@@ -42,3 +45,12 @@ export default class SearchPlaces extends Component {
         );
     }
 }
+function mapStateToProps(state) {
+    return {
+        feed: state.weather.coord
+    };
+}
+export default connect(
+    mapStateToProps,
+    actions
+)(SearchPlaces);
