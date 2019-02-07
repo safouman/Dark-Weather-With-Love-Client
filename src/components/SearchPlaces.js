@@ -31,7 +31,7 @@ class SearchPlaces extends Component {
 
     render() {
         const { address } = this.props;
-        console.log('address render', address);
+
         return (
             <div style={{ position: 'relative' }}>
                 <MUIPlacesAutocomplete

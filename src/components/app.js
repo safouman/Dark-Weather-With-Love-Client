@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import ForecastContainer from './ForecastContainer';
 import SearchPlaces from './SearchPlaces';
 import * as actions from '../actions';
 import { connect } from 'react-redux';
@@ -17,7 +17,12 @@ class App extends Component {
         }
     }
     render() {
-        return <SearchPlaces />;
+        return (
+            <div>
+                <SearchPlaces />
+                <ForecastContainer />
+            </div>
+        );
     }
 }
 function mapStateToProps(state) {

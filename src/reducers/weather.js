@@ -1,4 +1,4 @@
-import { SET_COORD, SET_ADDRESS } from '../actions/types';
+import { SET_COORD, SET_ADDRESS, FORECAST_RES } from '../actions/types';
 
 const INITIAL_STATE = {
     coord: {},
@@ -16,6 +16,11 @@ export default function(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 address: action.payload
+            };
+        case FORECAST_RES:
+            return {
+                ...state,
+                forecast: action.payload
             };
         default:
             return state;
