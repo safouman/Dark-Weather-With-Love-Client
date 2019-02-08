@@ -38,7 +38,7 @@ class SearchPlaces extends Component {
                     onSuggestionSelected={this.onSuggestionSelected}
                     renderTarget={() => <div />}
                 />
-                <Typography variant="h6">Address : {address}</Typography>
+                <Typography variant="subtitle1">Address : {address}</Typography>
             </div>
         );
     }

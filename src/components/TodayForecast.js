@@ -48,35 +48,6 @@ const styles = {
     }
 };
 
-const currently = {
-    time: 1509993277,
-    summary: 'Drizzle',
-    icon: 'snow',
-    nearestStormDistance: 0,
-    precipIntensity: 0.0089,
-    precipIntensityError: 0.0046,
-    precipProbability: 0.9,
-    precipType: 'rain',
-    temperature: 66.1,
-    apparentTemperature: 66.31,
-    dewPoint: 60.77,
-    humidity: 0.83,
-    pressure: 1010.34,
-    windSpeed: 5.59
-};
-const icon = [
-    { 'clear-day': 'CLEAR_DAY' },
-    { 'clear-night': 'CLEAR_NIGHT' },
-    { rain: 'RAIN' },
-    { snow: 'SNOW' },
-    { sleet: 'SLEET' },
-    { wind: 'WIND' },
-    { fog: 'FOG' },
-    { cloudy: 'CLOUDY' },
-    { 'partly-cloudy-day': 'PARTLY_CLOUDY_DAY' },
-    { 'partly-cloudy-night': 'PARTLY_CLOUDY_NIGHT' }
-];
-
 class TodayForeacast extends Component {
     constructor() {
         super();
@@ -88,12 +59,11 @@ class TodayForeacast extends Component {
         const { forecast } = props;
         if (forecast) {
             let icon = this.getIcon(forecast.currently.icon);
-            console.log(icon, 'dddmnt');
+
             this.setState({ icon });
         }
     }
     getIcon(current) {
-        console.log(current);
         switch (current) {
             case 'clear-day':
                 return 'CLEAR_DAY';
@@ -121,8 +91,8 @@ class TodayForeacast extends Component {
     render() {
         const { icon } = this.state;
 
-        const { classes } = this.props;
-        const { forecast, title } = this.props;
+        const { classes, forecast, title } = this.props;
+
         if (forecast) {
             return (
                 <Card className={classes.card}>
