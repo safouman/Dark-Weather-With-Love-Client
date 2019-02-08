@@ -4,10 +4,13 @@ import { connect } from 'react-redux';
 import TodayForecast from './TodayForecast';
 class ForecastContainer extends Component {
     render() {
+        const { forecast } = this.props;
         return (
             <div>
-                FORECAST HERE
-                <TodayForecast />
+                <TodayForecast
+                    title={" Today's Forecast"}
+                    forecast={forecast}
+                />
             </div>
         );
     }

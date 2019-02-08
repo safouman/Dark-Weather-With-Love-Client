@@ -13,6 +13,14 @@ module.exports = {
                 query: {
                     presets: ['react', 'es2015', 'stage-1']
                 }
+            },
+            {
+                test: /\.css$/,
+                loader: 'style-loader!css-loader'
+            },
+            {
+                test: /\.(eot|otf|woff|woff2|ttf|svg)(\?\S*)?$/,
+                loader: 'url-loader?name=/assets/fonts/[name].[hash].[ext]'
             }
         ]
     },
