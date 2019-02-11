@@ -34,9 +34,7 @@ class WeeklyForecast extends React.Component {
         const { classes, forecast } = this.props;
 
         if (forecast) {
-            const {
-                daily: { summary, data }
-            } = forecast;
+            const { summary, data } = forecast;
             return (
                 <div>
                     <Typography

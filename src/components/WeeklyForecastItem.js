@@ -8,6 +8,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Skycons from 'react-skycons';
+import ForecastDetails from './ForecastDetails';
 const styles = theme => ({
     heading: {
         fontSize: theme.typography.pxToRem(15),
@@ -59,10 +60,10 @@ class WeeklyForecastItem extends Component {
     };
     componentDidMount() {
         const { forecast } = this.props;
-        console.log(forecast, 'forecast');
+
         if (forecast) {
             let icon = this.getIcon(forecast.icon);
-            console.log(icon, 'dddmnt');
+
             this.setState({ icon });
         }
     }
@@ -73,6 +74,7 @@ class WeeklyForecastItem extends Component {
         if (forecast) {
             const { time, summary } = forecast;
             const { icon } = this.state;
+
             return (
                 <ExpansionPanel
                     expanded={expanded === 'panel1'}
@@ -94,12 +96,13 @@ class WeeklyForecastItem extends Component {
                             />
                         </div>
                     </ExpansionPanelSummary>
-                    <ExpansionPanelDetails>
-                        <Typography>
-                            Nulla facilisi. Phasellus sollicitudin nulla et quam
-                            mattis feugiat. Aliquam eget maximus est, id
-                            dignissim quam.
-                        </Typography>
+                    <ExpansionPanelDetails
+                        style={{ display: 'flex', justifyContent: 'center' }}
+                    >
+                        <ForecastDetails
+                            title={new Date(time * 1000).toDateString()}
+                            forecast={forecast}
+                        />
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
             );

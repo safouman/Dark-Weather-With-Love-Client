@@ -34,11 +34,7 @@ const styles = {
     card: {
         minWidth: 275
     },
-    bullet: {
-        display: 'inline-block',
-        margin: '0 2px',
-        transform: 'scale(0.8)'
-    },
+
     title: {
         fontSize: 25,
         fontWeight: 500
@@ -48,7 +44,7 @@ const styles = {
     }
 };
 
-class TodayForeacast extends Component {
+class ForecastDetails extends Component {
     constructor() {
         super();
         this.state = {
@@ -58,7 +54,7 @@ class TodayForeacast extends Component {
     componentWillReceiveProps(props) {
         const { forecast } = props;
         if (forecast) {
-            let icon = this.getIcon(forecast.currently.icon);
+            let icon = this.getIcon(forecast.icon);
 
             this.setState({ icon });
         }
@@ -81,7 +77,12 @@ class TodayForeacast extends Component {
                 return 'FOG';
             case 'cloudy':
                 return 'CLOUDY';
+            case 'mostly-cloudy':
+                return 'CLOUDY';
+
             case 'partly-cloudy-day':
+                return 'PARTLY_CLOUDY_DAY';
+            case 'partly-cloudy':
                 return 'PARTLY_CLOUDY_DAY';
             case 'partly-cloudy-night':
                 return 'PARTLY_CLOUDY_NIGHT';
@@ -95,7 +96,7 @@ class TodayForeacast extends Component {
 
         if (forecast) {
             return (
-                <Card className={classes.card}>
+                <Card raised className={classes.card}>
                     <CardContent>
                         <Typography
                             className={classes.title}
@@ -119,7 +120,7 @@ class TodayForeacast extends Component {
                                         autoplay={true}
                                     />
                                     <Typography variant="h5" component="h2">
-                                        {forecast.currently.summary}
+                                        {forecast.summary}
                                     </Typography>
                                 </div>
                                 <div
@@ -129,13 +130,11 @@ class TodayForeacast extends Component {
                                     }}
                                 >
                                     <Typography variant="h5" component="h2">
-                                        Temperature :{' '}
-                                        {forecast.currently.temperature} ˚
+                                        Temperature : {forecast.temperature} ˚
                                     </Typography>
                                     <Typography variant="h5" component="h2">
                                         Feels like :{' '}
-                                        {forecast.currently.apparentTemperature}{' '}
-                                        ˚
+                                        {forecast.apparentTemperature} ˚
                                     </Typography>
                                 </div>
                             </div>
@@ -149,7 +148,7 @@ class TodayForeacast extends Component {
                                         }}
                                     />
                                     <Typography variant="h6" component="h2">
-                                        {forecast.currently.humidity}%
+                                        {forecast.humidity}%
                                     </Typography>
                                 </div>
                                 <div className={classes.weatherIndicator}>
@@ -161,7 +160,7 @@ class TodayForeacast extends Component {
                                         }}
                                     />
                                     <Typography variant="h6" component="h2">
-                                        {forecast.currently.precipIntensity}
+                                        {forecast.precipIntensity}
                                     </Typography>
                                 </div>
                                 <div className={classes.weatherIndicator}>
@@ -173,7 +172,7 @@ class TodayForeacast extends Component {
                                         }}
                                     />
                                     <Typography variant="h6" component="h2">
-                                        {forecast.currently.pressure}mb
+                                        {forecast.pressure}mb
                                     </Typography>
                                 </div>
                                 <div className={classes.weatherIndicator}>
@@ -185,7 +184,7 @@ class TodayForeacast extends Component {
                                         }}
                                     />
                                     <Typography variant="h6" component="h2">
-                                        {forecast.currently.windSpeed}mph
+                                        {forecast.windSpeed}mph
                                     </Typography>
                                 </div>
                             </div>
@@ -199,8 +198,8 @@ class TodayForeacast extends Component {
     }
 }
 
-TodayForeacast.propTypes = {
+ForecastDetails.propTypes = {
     classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(TodayForeacast);
+export default withStyles(styles)(ForecastDetails);
