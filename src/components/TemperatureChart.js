@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Chart from 'react-apexcharts';
 
 const data = [
@@ -122,52 +123,30 @@ const data = [
 ];
 
 class TemperatureChart extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            options: {
-                chart: {
-                    id: 'basic-bar'
-                },
-                xaxis: {
-                    categories: [
-                        1991,
-                        1992,
-                        1993,
-                        1994,
-                        1995,
-                        1996,
-                        1997,
-                        1998,
-                        1999
-                    ]
-                }
-            },
-            series: [
-                {
-                    name: 'series-1',
-                    data: [30, 40, 45, 50, 49, 70, 91, 60]
-                }
-            ]
-        };
-    }
-
     render() {
-        return (
-            <div className="app">
-                <div className="row">
-                    <div className="mixed-chart">
-                        <Chart
-                            options={this.state.options}
-                            series={this.state.series}
-                            type="bar"
-                            width="500"
-                        />
+        const { options, series } = this.props;
+        if (options && series) {
+            return (
+                <div className="app">
+                    <div className="row">
+                        <div className="mixed-chart">
+                            <Chart
+                                options={options}
+                                series={series}
+                                type="line"
+                                width="600"
+                            />
+                        </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        } else {
+            return (
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <CircularProgress color="primary" size={80} />
+                </div>
+            );
+        }
     }
 }
 

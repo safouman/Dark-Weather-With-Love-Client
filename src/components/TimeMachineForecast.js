@@ -29,6 +29,7 @@ class TimeMachineForcast extends Component {
                 <ForecastDetails
                     title={new Date(currently.time * 1000).toDateString()}
                     forecast={currently}
+                    chart={false}
                 />
             );
         } else {

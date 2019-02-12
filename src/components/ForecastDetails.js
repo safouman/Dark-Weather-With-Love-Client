@@ -5,6 +5,7 @@ import Card from '@material-ui/core/Card';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import Skycons from 'react-skycons';
 import '../weather-icons/css/weather-icons.css';
 import TemperatureChart from './TemperatureChart';
@@ -49,7 +50,9 @@ class ForecastDetails extends Component {
     constructor() {
         super();
         this.state = {
-            icon: ''
+            icon: '',
+            label: 'Show Hourly',
+            showHourly: false
         };
     }
     componentDidMount() {
@@ -68,6 +71,120 @@ class ForecastDetails extends Component {
             this.setState({ icon });
         }
     }
+    renderChart() {
+        const { chart } = this.props;
+        const { label, showHourly } = this.state;
+        if (chart) {
+            const { hourly } = this.props;
+            let time = [];
+            let temperature = [];
+            hourly.data.map(item => {
+                time.push(new Date(item.time * 1000).getHours());
+                temperature.push(item.temperature);
+            });
+            let options = {
+                chart: {
+                    id: 'Hourly Temperature',
+                    height: 350,
+                    type: 'line',
+                    shadow: {
+                        enabled: true,
+                        color: '#000',
+                        top: 18,
+                        left: 7,
+                        blur: 10,
+                        opacity: 1
+                    },
+                    toolbar: {
+                        show: false
+                    }
+                },
+
+                dataLabels: {
+                    enabled: true
+                },
+                stroke: {
+                    curve: 'smooth'
+                },
+
+                xaxis: {
+                    categories: time,
+                    title: {
+                        text: 'Hours',
+                        style: {
+                            fontSize: '12px',
+                            color: '#ffffff'
+                        }
+                    },
+                    labels: {
+                        style: {
+                            fontSize: '10px',
+                            color: '#ffffff'
+                        }
+                    }
+                },
+                yaxis: {
+                    title: {
+                        text: 'Temperature',
+                        style: {
+                            fontSize: '12px',
+                            color: '#ffffff'
+                        }
+                    },
+                    labels: {
+                        style: {
+                            fontSize: '10px',
+                            color: '#ffffff'
+                        }
+                    }
+                }
+            };
+            let series = [
+                {
+                    name: 'temperature',
+                    data: temperature
+                }
+            ];
+
+            return (
+                <div
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        flexDirection: 'column'
+                    }}
+                >
+                    <Button
+                        color="primary"
+                        onClick={() =>
+                            this.setState(
+                                {
+                                    showHourly: !showHourly
+                                },
+                                () => {
+                                    if (label === 'hide') {
+                                        this.setState({
+                                            label: 'Show hourly'
+                                        });
+                                    } else {
+                                        this.setState({
+                                            label: 'hide'
+                                        });
+                                    }
+                                }
+                            )
+                        }
+                    >
+                        {label}
+                    </Button>
+                    {showHourly && (
+                        <TemperatureChart options={options} series={series} />
+                    )}
+                </div>
+            );
+        }
+    }
+
     getIcon(current) {
         switch (current) {
             case 'clear-day':
@@ -133,6 +250,7 @@ class ForecastDetails extends Component {
             }
         }
     }
+
     render() {
         const { icon } = this.state;
 
@@ -225,6 +343,7 @@ class ForecastDetails extends Component {
                                         </Typography>
                                     </div>
                                 </div>
+                                {this.renderChart()}
                             </div>
                         </CardContent>
                     </Card>

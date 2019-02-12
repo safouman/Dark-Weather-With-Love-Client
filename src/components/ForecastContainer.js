@@ -36,6 +36,8 @@ class ForecastContainer extends Component {
                     <ForecastDetails
                         title={" Today's Forecast"}
                         forecast={forecast.currently}
+                        chart={true}
+                        hourly={forecast.hourly}
                     />
                     <div>
                         <Paper className={classes.root}>

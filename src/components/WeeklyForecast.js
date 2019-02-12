@@ -63,6 +63,7 @@ class WeeklyForecast extends React.Component {
                                 <WeeklyForecastItem
                                     key={item.time}
                                     forecast={item}
+                                    chart={false}
                                 />
                             );
                         })}
