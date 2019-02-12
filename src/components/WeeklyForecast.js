@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
 import WeeklyForecastItem from './WeeklyForecastItem';
 const styles = theme => ({
     root: {
@@ -70,7 +70,17 @@ class WeeklyForecast extends React.Component {
                 </div>
             );
         } else {
-            return <div>Loading</div>;
+            return (
+                <div
+                    style={{
+                        marginTop: '10%',
+                        display: 'flex',
+                        justifyContent: 'center'
+                    }}
+                >
+                    <CircularProgress color="primary" size={60} />
+                </div>
+            );
         }
     }
 }

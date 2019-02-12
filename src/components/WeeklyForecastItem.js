@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -107,7 +108,11 @@ class WeeklyForecastItem extends Component {
                 </ExpansionPanel>
             );
         } else {
-            return <div> Loading</div>;
+            return (
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <CircularProgress color="primary" size={80} />
+                </div>
+            );
         }
     }
 }

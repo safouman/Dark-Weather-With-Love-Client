@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Skycons from 'react-skycons';
 import '../weather-icons/css/weather-icons.css';
+import TemperatureChart from './TemperatureChart';
 
 const styles = {
     weatherIndicatorContainer: {
@@ -29,7 +30,7 @@ const styles = {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        width: '1   5vw'
+        width: '50%'
     },
     card: {
         minWidth: 275
@@ -94,7 +95,44 @@ class ForecastDetails extends Component {
                 return 'PARTLY_CLOUDY_NIGHT';
         }
     }
-
+    renderTemperature() {
+        const { forecast } = this.props;
+        if (forecast) {
+            if (forecast.temperature) {
+                return (
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column'
+                        }}
+                    >
+                        <Typography variant="h5" component="h2">
+                            Temperature : {forecast.temperature} ˚
+                        </Typography>
+                        <Typography variant="h5" component="h2">
+                            Feels like : {forecast.apparentTemperature} ˚
+                        </Typography>
+                    </div>
+                );
+            } else {
+                return (
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column'
+                        }}
+                    >
+                        <Typography variant="h5" component="h2">
+                            Lowest : {forecast.temperatureLow} ˚
+                        </Typography>
+                        <Typography variant="h5" component="h2">
+                            Highest : {forecast.temperatureHigh} ˚
+                        </Typography>
+                    </div>
+                );
+            }
+        }
+    }
     render() {
         const { icon } = this.state;
 
@@ -102,7 +140,7 @@ class ForecastDetails extends Component {
 
         if (forecast) {
             return (
-                <div>
+                <div style={{ width: '100%' }}>
                     <Card raised className={classes.card}>
                         <CardContent>
                             <Typography
@@ -126,26 +164,13 @@ class ForecastDetails extends Component {
                                             icon={`${icon}`}
                                             autoplay={true}
                                         />
-                                        <Typography variant="h5" component="h2">
-                                            {forecast.summary}
-                                        </Typography>
                                     </div>
-                                    <div
-                                        style={{
-                                            display: 'flex',
-                                            flexDirection: 'column'
-                                        }}
-                                    >
-                                        <Typography variant="h5" component="h2">
-                                            Temperature : {forecast.temperature}{' '}
-                                            ˚
-                                        </Typography>
-                                        <Typography variant="h5" component="h2">
-                                            Feels like :{' '}
-                                            {forecast.apparentTemperature} ˚
-                                        </Typography>
-                                    </div>
+
+                                    {this.renderTemperature()}
                                 </div>
+                                <Typography variant="h5" component="h2">
+                                    {forecast.summary}
+                                </Typography>
                                 <div
                                     className={
                                         classes.weatherIndicatorContainer
@@ -155,7 +180,7 @@ class ForecastDetails extends Component {
                                         <i
                                             className="wi wi-humidity  wi-fw"
                                             style={{
-                                                fontSize: '40px',
+                                                fontSize: '35px',
                                                 color: '#ffffff'
                                             }}
                                         />
@@ -167,7 +192,7 @@ class ForecastDetails extends Component {
                                         <i
                                             className="wi wi-raindrop  wi-fw"
                                             style={{
-                                                fontSize: '40px',
+                                                fontSize: '35px',
                                                 color: '#ffffff'
                                             }}
                                         />
@@ -179,7 +204,7 @@ class ForecastDetails extends Component {
                                         <i
                                             className="wi wi-barometer  wi-fw"
                                             style={{
-                                                fontSize: '40px',
+                                                fontSize: '35px',
                                                 color: '#ffffff'
                                             }}
                                         />
@@ -191,7 +216,7 @@ class ForecastDetails extends Component {
                                         <i
                                             className="wi wi-strong-wind  wi-fw"
                                             style={{
-                                                fontSize: '40px',
+                                                fontSize: '35px',
                                                 color: '#ffffff'
                                             }}
                                         />
@@ -206,7 +231,11 @@ class ForecastDetails extends Component {
                 </div>
             );
         } else {
-            return <div> Loading </div>;
+            return (
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <CircularProgress color="primary" size={80} />
+                </div>
+            );
         }
     }
 }

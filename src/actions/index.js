@@ -8,8 +8,8 @@ import Geocode from 'react-geocode';
 import axios from 'axios';
 
 Geocode.setApiKey('AIzaSyDyA4BWuL_v2eDkYCVKUFrBeLRamTx08Mc');
-const DARKSKY_API_KEY = '304840d9d3d6e250ab1f3dda0273969d';
-const API = `https://api.darksky.net/forecast/${DARKSKY_API_KEY}/`;
+
+const API = 'https://madewithloveweather.herokuapp.com/api/';
 
 export function setCoordinates(coord) {
     return function(dispatch) {
@@ -37,7 +37,7 @@ export function forecastRequest(coord) {
     return function(dispatch) {
         //fetch data
         axios
-            .get(API + coord.lat + ',' + coord.lng)
+            .get(API + 'forecast?lat=' + coord.lat + '&lon=' + coord.lng)
             .then(function(response) {
                 // handle success save data to Redux state
 
@@ -60,7 +60,16 @@ export function timemachineRequest(coord, date) {
         let unixstamp = new Date(date).getTime() / 1000;
 
         axios
-            .get(API + coord.lat + ',' + coord.lng + ',' + unixstamp)
+            .get(
+                API +
+                    'timemachine?lat=' +
+                    coord.lat +
+                    '&lon=' +
+                    coord.lng +
+                    '&time=' +
+                    unixstamp
+            )
+
             .then(function(response) {
                 // handle success save data to Redux state
 
