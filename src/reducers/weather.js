@@ -1,8 +1,15 @@
-import { SET_COORD, SET_ADDRESS, FORECAST_RES } from '../actions/types';
+import {
+    SET_COORD,
+    SET_ADDRESS,
+    FORECAST_RES,
+    TIME_MACHINE_RES
+} from '../actions/types';
 
 const INITIAL_STATE = {
+    address: '',
     coord: {},
-    address: ''
+    tm_forecast: {},
+    forecast: {}
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -21,6 +28,11 @@ export default function(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 forecast: action.payload
+            };
+        case TIME_MACHINE_RES:
+            return {
+                ...state,
+                tm_forecast: action.payload
             };
         default:
             return state;

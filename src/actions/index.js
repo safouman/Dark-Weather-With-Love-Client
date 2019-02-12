@@ -1,4 +1,9 @@
-import { FORECAST_RES, SET_COORD, SET_ADDRESS } from './types';
+import {
+    FORECAST_RES,
+    SET_COORD,
+    SET_ADDRESS,
+    TIME_MACHINE_RES
+} from './types';
 import Geocode from 'react-geocode';
 import axios from 'axios';
 
@@ -44,5 +49,27 @@ export function forecastRequest(coord) {
             });
 
         //dispatch
+    };
+}
+
+export function timemachineRequest(coord, date) {
+    return function(dispatch) {
+        //send request for timemachine
+        //fetch data
+
+        let unixstamp = new Date(date).getTime() / 1000;
+
+        axios
+            .get(API + coord.lat + ',' + coord.lng + ',' + unixstamp)
+            .then(function(response) {
+                // handle success save data to Redux state
+
+                dispatch({ type: TIME_MACHINE_RES, payload: response.data });
+            })
+            .catch(function(error) {
+                // handle error
+                console.log(error);
+            });
+        //dispatch to redux
     };
 }

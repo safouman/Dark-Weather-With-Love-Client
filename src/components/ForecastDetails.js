@@ -51,6 +51,14 @@ class ForecastDetails extends Component {
             icon: ''
         };
     }
+    componentDidMount() {
+        const { forecast } = this.props;
+        if (forecast) {
+            let icon = this.getIcon(forecast.icon);
+
+            this.setState({ icon });
+        }
+    }
     componentWillReceiveProps(props) {
         const { forecast } = props;
         if (forecast) {
@@ -77,8 +85,6 @@ class ForecastDetails extends Component {
                 return 'FOG';
             case 'cloudy':
                 return 'CLOUDY';
-            case 'mostly-cloudy':
-                return 'CLOUDY';
 
             case 'partly-cloudy-day':
                 return 'PARTLY_CLOUDY_DAY';
@@ -96,101 +102,108 @@ class ForecastDetails extends Component {
 
         if (forecast) {
             return (
-                <Card raised className={classes.card}>
-                    <CardContent>
-                        <Typography
-                            className={classes.title}
-                            color="textSecondary"
-                            gutterBottom
-                        >
-                            {title}
-                        </Typography>
-                        <div className={classes.statsContainer}>
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'center'
-                                }}
+                <div>
+                    <Card raised className={classes.card}>
+                        <CardContent>
+                            <Typography
+                                className={classes.title}
+                                color="textSecondary"
+                                gutterBottom
                             >
-                                <div className={classes.icon}>
-                                    {' '}
-                                    <Skycons
-                                        color="white"
-                                        icon={`${icon}`}
-                                        autoplay={true}
-                                    />
-                                    <Typography variant="h5" component="h2">
-                                        {forecast.summary}
-                                    </Typography>
-                                </div>
+                                {title}
+                            </Typography>
+                            <div className={classes.statsContainer}>
                                 <div
                                     style={{
                                         display: 'flex',
-                                        flexDirection: 'column'
+                                        alignItems: 'center'
                                     }}
                                 >
-                                    <Typography variant="h5" component="h2">
-                                        Temperature : {forecast.temperature} ˚
-                                    </Typography>
-                                    <Typography variant="h5" component="h2">
-                                        Feels like :{' '}
-                                        {forecast.apparentTemperature} ˚
-                                    </Typography>
+                                    <div className={classes.icon}>
+                                        {' '}
+                                        <Skycons
+                                            color="white"
+                                            icon={`${icon}`}
+                                            autoplay={true}
+                                        />
+                                        <Typography variant="h5" component="h2">
+                                            {forecast.summary}
+                                        </Typography>
+                                    </div>
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            flexDirection: 'column'
+                                        }}
+                                    >
+                                        <Typography variant="h5" component="h2">
+                                            Temperature : {forecast.temperature}{' '}
+                                            ˚
+                                        </Typography>
+                                        <Typography variant="h5" component="h2">
+                                            Feels like :{' '}
+                                            {forecast.apparentTemperature} ˚
+                                        </Typography>
+                                    </div>
+                                </div>
+                                <div
+                                    className={
+                                        classes.weatherIndicatorContainer
+                                    }
+                                >
+                                    <div className={classes.weatherIndicator}>
+                                        <i
+                                            className="wi wi-humidity  wi-fw"
+                                            style={{
+                                                fontSize: '40px',
+                                                color: '#ffffff'
+                                            }}
+                                        />
+                                        <Typography variant="h6" component="h2">
+                                            {forecast.humidity}%
+                                        </Typography>
+                                    </div>
+                                    <div className={classes.weatherIndicator}>
+                                        <i
+                                            className="wi wi-raindrop  wi-fw"
+                                            style={{
+                                                fontSize: '40px',
+                                                color: '#ffffff'
+                                            }}
+                                        />
+                                        <Typography variant="h6" component="h2">
+                                            {forecast.precipIntensity}
+                                        </Typography>
+                                    </div>
+                                    <div className={classes.weatherIndicator}>
+                                        <i
+                                            className="wi wi-barometer  wi-fw"
+                                            style={{
+                                                fontSize: '40px',
+                                                color: '#ffffff'
+                                            }}
+                                        />
+                                        <Typography variant="h6" component="h2">
+                                            {forecast.pressure}mb
+                                        </Typography>
+                                    </div>
+                                    <div className={classes.weatherIndicator}>
+                                        <i
+                                            className="wi wi-strong-wind  wi-fw"
+                                            style={{
+                                                fontSize: '40px',
+                                                color: '#ffffff'
+                                            }}
+                                        />
+                                        <Typography variant="h6" component="h2">
+                                            {forecast.windSpeed}mph
+                                        </Typography>
+                                    </div>
                                 </div>
                             </div>
-                            <div className={classes.weatherIndicatorContainer}>
-                                <div className={classes.weatherIndicator}>
-                                    <i
-                                        className="wi wi-humidity  wi-fw"
-                                        style={{
-                                            fontSize: '40px',
-                                            color: '#ffffff'
-                                        }}
-                                    />
-                                    <Typography variant="h6" component="h2">
-                                        {forecast.humidity}%
-                                    </Typography>
-                                </div>
-                                <div className={classes.weatherIndicator}>
-                                    <i
-                                        className="wi wi-raindrop  wi-fw"
-                                        style={{
-                                            fontSize: '40px',
-                                            color: '#ffffff'
-                                        }}
-                                    />
-                                    <Typography variant="h6" component="h2">
-                                        {forecast.precipIntensity}
-                                    </Typography>
-                                </div>
-                                <div className={classes.weatherIndicator}>
-                                    <i
-                                        className="wi wi-barometer  wi-fw"
-                                        style={{
-                                            fontSize: '40px',
-                                            color: '#ffffff'
-                                        }}
-                                    />
-                                    <Typography variant="h6" component="h2">
-                                        {forecast.pressure}mb
-                                    </Typography>
-                                </div>
-                                <div className={classes.weatherIndicator}>
-                                    <i
-                                        className="wi wi-strong-wind  wi-fw"
-                                        style={{
-                                            fontSize: '40px',
-                                            color: '#ffffff'
-                                        }}
-                                    />
-                                    <Typography variant="h6" component="h2">
-                                        {forecast.windSpeed}mph
-                                    </Typography>
-                                </div>
-                            </div>
-                        </div>
-                    </CardContent>
-                </Card>
+                        </CardContent>
+                    </Card>
+                </div>
             );
         } else {
             return <div> Loading </div>;
