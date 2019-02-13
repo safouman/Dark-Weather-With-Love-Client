@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Chart from 'react-apexcharts';
 
-class TemperatureChart extends Component {
+class IndicatorsChart extends Component {
     render() {
         const { options, series } = this.props;
         if (options && series) {
@@ -28,4 +28,4 @@ class TemperatureChart extends Component {
     }
 }
 
-export default TemperatureChart;
+export default IndicatorsChart;

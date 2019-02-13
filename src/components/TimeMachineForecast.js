@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import MomentUtils from '@date-io/moment';
-import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
+import {
+    MuiPickersUtilsProvider,
+    DatePicker,
+    InlineDatePicker
+} from 'material-ui-pickers';
 import Typography from '@material-ui/core/Typography';
 import ForecastDetails from './ForecastDetails';
 
@@ -34,7 +38,12 @@ class TimeMachineForcast extends Component {
             );
         } else {
             return (
-                <Typography variant="h5">
+                <Typography
+                    style={{
+                        textAlign: 'center'
+                    }}
+                    variant="h6"
+                >
                     Pick A Date To Check Forecast{' '}
                 </Typography>
             );
@@ -50,20 +59,25 @@ class TimeMachineForcast extends Component {
         return (
             <div
                 style={{
-                    marginBottom: '5%',
                     display: 'flex',
+                    flexDirection: 'column',
                     justifyContent: 'center',
-                    alignItems: 'center',
-                    flexDirection: 'column'
+                    alignitems: 'center',
+                    marginBottom: '5%'
                 }}
             >
                 <div
                     style={{
-                        width: '25vw'
+                        display: 'flex',
+                        alignSelf: 'center'
                     }}
                 >
                     <MuiPickersUtilsProvider utils={MomentUtils}>
-                        <DatePicker
+                        <InlineDatePicker
+                            style={{
+                                width: '25vw'
+                            }}
+                            variant="outlined"
                             margin="normal"
                             value={selectedDate}
                             onChange={this.handleDateChange}
@@ -72,7 +86,7 @@ class TimeMachineForcast extends Component {
                         />
                     </MuiPickersUtilsProvider>
                 </div>
-                {this.renderForecast()}
+                <div>{this.renderForecast()}</div>
             </div>
         );
     }

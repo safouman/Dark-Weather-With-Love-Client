@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Skycons from 'react-skycons';
 import '../weather-icons/css/weather-icons.css';
-import TemperatureChart from './TemperatureChart';
+import IndicatorsChart from './IndicatorsChart';
 
 const styles = {
     weatherIndicatorContainer: {
@@ -52,7 +52,7 @@ class ForecastDetails extends Component {
         super();
         this.state = {
             icon: '',
-            label: 'Show Hourly',
+            label: 'Next 12 Hours',
             showHourly: false
         };
     }
