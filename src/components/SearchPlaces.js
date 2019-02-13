@@ -33,12 +33,25 @@ class SearchPlaces extends Component {
         const { address } = this.props;
 
         return (
-            <div style={{ position: 'relative' }}>
-                <MUIPlacesAutocomplete
-                    onSuggestionSelected={this.onSuggestionSelected}
-                    renderTarget={() => <div />}
-                />
-                <Typography variant="subtitle1">Address : {address}</Typography>
+            <div>
+                <div style={{ position: 'relative', width: '30vw' }}>
+                    <MUIPlacesAutocomplete
+                        onSuggestionSelected={this.onSuggestionSelected}
+                        renderTarget={() => <div />}
+                        style={{}}
+                    />
+                </div>
+
+                <Typography
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        marginTop: '2%'
+                    }}
+                    variant="subtitle1"
+                >
+                    Address : {address}
+                </Typography>
             </div>
         );
     }

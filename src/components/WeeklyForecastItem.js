@@ -26,7 +26,6 @@ const styles = theme => ({
 });
 class WeeklyForecastItem extends Component {
     state = {
-        expanded: null,
         icon: ''
     };
     getIcon(current) {
@@ -54,11 +53,6 @@ class WeeklyForecastItem extends Component {
         }
     }
 
-    handleChange = panel => (event, expanded) => {
-        this.setState({
-            expanded: expanded ? panel : false
-        });
-    };
     componentDidMount() {
         const { forecast } = this.props;
 
@@ -69,8 +63,7 @@ class WeeklyForecastItem extends Component {
         }
     }
     render() {
-        const { classes, forecast } = this.props;
-        const { expanded } = this.state;
+        const { classes, forecast, expanded, handleChange } = this.props;
 
         if (forecast) {
             const { time, summary } = forecast;
@@ -78,8 +71,8 @@ class WeeklyForecastItem extends Component {
 
             return (
                 <ExpansionPanel
-                    expanded={expanded === 'panel1'}
-                    onChange={this.handleChange('panel1')}
+                    expanded={expanded === time}
+                    onChange={handleChange(time)}
                 >
                     <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                         <Typography className={classes.heading}>

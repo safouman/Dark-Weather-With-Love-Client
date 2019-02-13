@@ -12,7 +12,8 @@ import TemperatureChart from './TemperatureChart';
 
 const styles = {
     weatherIndicatorContainer: {
-        display: 'flex'
+        display: 'flex',
+        flexWrap: 'wrap'
     },
     statsContainer: {
         display: 'flex',
@@ -78,14 +79,18 @@ class ForecastDetails extends Component {
             const { hourly } = this.props;
             let time = [];
             let temperature = [];
-            hourly.data.map(item => {
-                time.push(new Date(item.time * 1000).getHours());
-                temperature.push(item.temperature);
-            });
+            let humidity = [];
+            for (let item = 0; item <= 12; item++) {
+                time.push(new Date(hourly.data[item].time * 1000).getHours());
+                temperature.push(hourly.data[item].temperature);
+                humidity.push(hourly.data[item].humidity);
+            }
+
             let options = {
                 chart: {
                     id: 'Hourly Temperature',
-                    height: 350,
+                    height: 400,
+
                     type: 'line',
                     shadow: {
                         enabled: true,
@@ -99,6 +104,7 @@ class ForecastDetails extends Component {
                         show: false
                     }
                 },
+                colors: ['#ff4747', '#ffffff'],
 
                 dataLabels: {
                     enabled: true
@@ -106,80 +112,134 @@ class ForecastDetails extends Component {
                 stroke: {
                     curve: 'smooth'
                 },
-
+                legend: {
+                    show: true,
+                    fontSize: '12px',
+                    labels: {
+                        colors: '#ffffff'
+                    }
+                },
                 xaxis: {
                     categories: time,
+                    tickAmount: 6,
                     title: {
-                        text: 'Hours',
+                        text: 'Hourly',
                         style: {
                             fontSize: '12px',
                             color: '#ffffff'
                         }
                     },
+
                     labels: {
+                        show: true,
+
                         style: {
-                            fontSize: '10px',
-                            color: '#ffffff'
+                            colors: '#ffffff',
+                            fontSize: '12px'
                         }
                     }
                 },
-                yaxis: {
-                    title: {
-                        text: 'Temperature',
-                        style: {
-                            fontSize: '12px',
-                            color: '#ffffff'
+                yaxis: [
+                    {
+                        title: {
+                            text: 'Temperature',
+                            style: {
+                                fontSize: '12px',
+                                color: '#ff4747'
+                            }
+                        },
+                        labels: {
+                            style: {
+                                fontSize: '10px',
+                                color: '#ff4747'
+                            }
                         }
                     },
-                    labels: {
-                        style: {
-                            fontSize: '10px',
-                            color: '#ffffff'
+                    {
+                        seriesName: 'Humidity',
+                        opposite: true,
+
+                        labels: {
+                            style: {
+                                color: '#ffffff'
+                            }
+                        },
+                        title: {
+                            text: 'Humidity',
+                            style: {
+                                color: '#ffffff'
+                            }
                         }
                     }
-                }
+                ],
+                responsive: [
+                    {
+                        breakpoint: 480,
+                        options: {
+                            chart: {
+                                height: 300
+                            }
+                        }
+                    }
+                ]
             };
             let series = [
                 {
-                    name: 'temperature',
+                    name: 'Temperature',
                     data: temperature
+                },
+                {
+                    name: 'Humidity',
+                    data: humidity
                 }
             ];
 
             return (
-                <div
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        flexDirection: 'column'
-                    }}
-                >
-                    <Button
-                        color="primary"
-                        onClick={() =>
-                            this.setState(
-                                {
-                                    showHourly: !showHourly
-                                },
-                                () => {
-                                    if (label === 'hide') {
-                                        this.setState({
-                                            label: 'Show hourly'
-                                        });
-                                    } else {
-                                        this.setState({
-                                            label: 'hide'
-                                        });
-                                    }
-                                }
-                            )
-                        }
+                <div>
+                    <div
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'center'
+                        }}
                     >
-                        {label}
-                    </Button>
-                    {showHourly && (
-                        <TemperatureChart options={options} series={series} />
-                    )}
+                        <Button
+                            style={{ width: '10vw' }}
+                            color="primary"
+                            onClick={() =>
+                                this.setState(
+                                    {
+                                        showHourly: !showHourly
+                                    },
+                                    () => {
+                                        if (label === 'hide') {
+                                            this.setState({
+                                                label: ' next 12 hours'
+                                            });
+                                        } else {
+                                            this.setState({
+                                                label: 'hide'
+                                            });
+                                        }
+                                    }
+                                )
+                            }
+                        >
+                            {label}
+                        </Button>
+                    </div>
+                    <div
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'center'
+                        }}
+                    >
+                        {showHourly && (
+                            <TemperatureChart
+                                options={options}
+                                series={series}
+                            />
+                        )}
+                    </div>
                 </div>
             );
         }
@@ -224,10 +284,10 @@ class ForecastDetails extends Component {
                         }}
                     >
                         <Typography variant="h5" component="h2">
-                            Temperature : {forecast.temperature} ˚
+                            Temperature : {forecast.temperature} ˚C
                         </Typography>
                         <Typography variant="h5" component="h2">
-                            Feels like : {forecast.apparentTemperature} ˚
+                            Feels like : {forecast.apparentTemperature} ˚C
                         </Typography>
                     </div>
                 );
@@ -240,10 +300,10 @@ class ForecastDetails extends Component {
                         }}
                     >
                         <Typography variant="h5" component="h2">
-                            Lowest : {forecast.temperatureLow} ˚
+                            Lowest : {forecast.temperatureLow} ˚C
                         </Typography>
                         <Typography variant="h5" component="h2">
-                            Highest : {forecast.temperatureHigh} ˚
+                            Highest : {forecast.temperatureHigh} ˚C
                         </Typography>
                     </div>
                 );
@@ -315,7 +375,7 @@ class ForecastDetails extends Component {
                                             }}
                                         />
                                         <Typography variant="h6" component="h2">
-                                            {forecast.precipIntensity}
+                                            {forecast.precipIntensity} mm/h
                                         </Typography>
                                     </div>
                                     <div className={classes.weatherIndicator}>
@@ -327,7 +387,7 @@ class ForecastDetails extends Component {
                                             }}
                                         />
                                         <Typography variant="h6" component="h2">
-                                            {forecast.pressure}mb
+                                            {forecast.pressure} hPa
                                         </Typography>
                                     </div>
                                     <div className={classes.weatherIndicator}>
@@ -339,7 +399,7 @@ class ForecastDetails extends Component {
                                             }}
                                         />
                                         <Typography variant="h6" component="h2">
-                                            {forecast.windSpeed}mph
+                                            {forecast.windSpeed} m/s
                                         </Typography>
                                     </div>
                                 </div>

@@ -127,16 +127,14 @@ class TemperatureChart extends Component {
         const { options, series } = this.props;
         if (options && series) {
             return (
-                <div className="app">
-                    <div className="row">
-                        <div className="mixed-chart">
-                            <Chart
-                                options={options}
-                                series={series}
-                                type="line"
-                                width="600"
-                            />
-                        </div>
+                <div>
+                    <div className="mixed-chart">
+                        <Chart
+                            options={options}
+                            series={series}
+                            type="line"
+                            width={700}
+                        />
                     </div>
                 </div>
             );

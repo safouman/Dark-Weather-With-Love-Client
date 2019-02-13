@@ -10,7 +10,7 @@ class TimeMachineForcast extends Component {
     constructor() {
         super();
         this.state = {
-            selectedDate: new Date()
+            selectedDate: null
         };
         this.handleDateChange = this.handleDateChange.bind(this);
     }
@@ -33,7 +33,11 @@ class TimeMachineForcast extends Component {
                 />
             );
         } else {
-            return <Typography>Pick A Date To Check Forecast </Typography>;
+            return (
+                <Typography variant="h5">
+                    Pick A Date To Check Forecast{' '}
+                </Typography>
+            );
         }
     }
     render() {
@@ -44,17 +48,31 @@ class TimeMachineForcast extends Component {
         //date picker
         //once date picked launch request load then display
         return (
-            <div style={{ marginBottom: '5%' }}>
-                <MuiPickersUtilsProvider utils={MomentUtils}>
-                    <DatePicker
-                        margin="normal"
-                        value={selectedDate}
-                        onChange={this.handleDateChange}
-                        minDate={minDate}
-                        maxDate={today}
-                    />
-                    {this.renderForecast()}
-                </MuiPickersUtilsProvider>
+            <div
+                style={{
+                    marginBottom: '5%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flexDirection: 'column'
+                }}
+            >
+                <div
+                    style={{
+                        width: '25vw'
+                    }}
+                >
+                    <MuiPickersUtilsProvider utils={MomentUtils}>
+                        <DatePicker
+                            margin="normal"
+                            value={selectedDate}
+                            onChange={this.handleDateChange}
+                            minDate={minDate}
+                            maxDate={today}
+                        />
+                    </MuiPickersUtilsProvider>
+                </div>
+                {this.renderForecast()}
             </div>
         );
     }

@@ -2,7 +2,8 @@ import {
     FORECAST_RES,
     SET_COORD,
     SET_ADDRESS,
-    TIME_MACHINE_RES
+    TIME_MACHINE_RES,
+    CLEAR
 } from './types';
 import Geocode from 'react-geocode';
 import axios from 'axios';
@@ -22,6 +23,7 @@ export function setCoordinates(coord) {
                 payload: coord
             });
             dispatch(forecastRequest(coord));
+            dispatch(clear_data());
         });
     };
 }
@@ -51,7 +53,11 @@ export function forecastRequest(coord) {
         //dispatch
     };
 }
-
+export function clear_data() {
+    return {
+        type: CLEAR
+    };
+}
 export function timemachineRequest(coord, date) {
     return function(dispatch) {
         //send request for timemachine

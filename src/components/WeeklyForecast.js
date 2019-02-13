@@ -64,6 +64,8 @@ class WeeklyForecast extends React.Component {
                                     key={item.time}
                                     forecast={item}
                                     chart={false}
+                                    expanded={this.state.expanded}
+                                    handleChange={this.handleChange}
                                 />
                             );
                         })}

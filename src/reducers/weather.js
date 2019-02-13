@@ -2,7 +2,8 @@ import {
     SET_COORD,
     SET_ADDRESS,
     FORECAST_RES,
-    TIME_MACHINE_RES
+    TIME_MACHINE_RES,
+    CLEAR
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -34,6 +35,8 @@ export default function(state = INITIAL_STATE, action) {
                 ...state,
                 tm_forecast: action.payload
             };
+        case CLEAR:
+            return { ...state, tm_forecast: {} };
         default:
             return state;
     }

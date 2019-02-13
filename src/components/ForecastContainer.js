@@ -9,12 +9,16 @@ import Tab from '@material-ui/core/Tab';
 import WeeklyForecast from './WeeklyForecast';
 import ForecastDetails from './ForecastDetails';
 import TimeMachineForecast from './TimeMachineForecast';
-
+import * as actions from '../actions';
 const styles = theme => ({
     root: {
         flexGrow: 1,
         backgroundColor: theme.palette.background.paper,
         marginTop: '5%'
+    },
+    components: {
+        display: 'flex',
+        justifyContent: 'center'
     }
 });
 
@@ -25,6 +29,7 @@ class ForecastContainer extends Component {
 
     handleChange = (event, value) => {
         this.setState({ value });
+        this.props.clear_data();
     };
 
     render() {
@@ -53,10 +58,12 @@ class ForecastContainer extends Component {
                             </Tabs>
                         </Paper>
 
-                        {this.state.value === 0 && (
-                            <WeeklyForecast forecast={forecast.daily} />
-                        )}
-                        {this.state.value === 1 && <TimeMachineForecast />}
+                        <div className={classes.components}>
+                            {this.state.value === 0 && (
+                                <WeeklyForecast forecast={forecast.daily} />
+                            )}
+                            {this.state.value === 1 && <TimeMachineForecast />}
+                        </div>
                     </div>
                 </div>
             );
@@ -77,4 +84,7 @@ function mapStateToProps(state) {
         forecast: state.weather.forecast
     };
 }
-export default connect(mapStateToProps)(withStyles(styles)(ForecastContainer));
+export default connect(
+    mapStateToProps,
+    actions
+)(withStyles(styles)(ForecastContainer));
