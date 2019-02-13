@@ -234,7 +234,7 @@ class ForecastDetails extends Component {
                         }}
                     >
                         {showHourly && (
-                            <TemperatureChart
+                            <IndicatorsChart
                                 options={options}
                                 series={series}
                             />
