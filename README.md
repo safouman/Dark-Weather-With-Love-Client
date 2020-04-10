@@ -27,6 +27,9 @@ Link to backend repo.
 For local demo:
 
 -   clone/download this repo
+-   add .env file in your root directory and add the following lines : 
+  - GOOGLE=YOUR API KEY FOR PLACCES 
+  - API= DARKSKY API KEY
 -   run "npm install"
 -   run "npm start"
 -   Up and running on "localhost:8080"
