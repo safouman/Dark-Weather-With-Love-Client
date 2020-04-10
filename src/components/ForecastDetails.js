@@ -51,7 +51,7 @@ class ForecastDetails extends Component {
     constructor() {
         super();
         this.state = {
-            icon: '',
+            icon: 'CLEAR_DAY',
             label: 'Next 12 Hours',
             showHourly: false
         };
@@ -200,11 +200,10 @@ class ForecastDetails extends Component {
                         style={{
                             display: 'flex',
                             justifyContent: 'center'
-                        }}
-                    >
+                        }}>
                         <Button
                             style={{ width: '10vw' }}
-                            color="primary"
+                            color='primary'
                             onClick={() =>
                                 this.setState(
                                     {
@@ -222,8 +221,7 @@ class ForecastDetails extends Component {
                                         }
                                     }
                                 )
-                            }
-                        >
+                            }>
                             {label}
                         </Button>
                     </div>
@@ -231,8 +229,7 @@ class ForecastDetails extends Component {
                         style={{
                             display: 'flex',
                             justifyContent: 'center'
-                        }}
-                    >
+                        }}>
                         {showHourly && (
                             <IndicatorsChart
                                 options={options}
@@ -281,12 +278,11 @@ class ForecastDetails extends Component {
                         style={{
                             display: 'flex',
                             flexDirection: 'column'
-                        }}
-                    >
-                        <Typography variant="h5" component="h2">
+                        }}>
+                        <Typography variant='h5' component='h2'>
                             Temperature : {forecast.temperature} ˚C
                         </Typography>
-                        <Typography variant="h5" component="h2">
+                        <Typography variant='h5' component='h2'>
                             Feels like : {forecast.apparentTemperature} ˚C
                         </Typography>
                     </div>
@@ -297,12 +293,11 @@ class ForecastDetails extends Component {
                         style={{
                             display: 'flex',
                             flexDirection: 'column'
-                        }}
-                    >
-                        <Typography variant="h5" component="h2">
+                        }}>
+                        <Typography variant='h5' component='h2'>
                             Lowest : {forecast.temperatureLow} ˚C
                         </Typography>
-                        <Typography variant="h5" component="h2">
+                        <Typography variant='h5' component='h2'>
                             Highest : {forecast.temperatureHigh} ˚C
                         </Typography>
                     </div>
@@ -323,9 +318,8 @@ class ForecastDetails extends Component {
                         <CardContent>
                             <Typography
                                 className={classes.title}
-                                color="textSecondary"
-                                gutterBottom
-                            >
+                                color='textSecondary'
+                                gutterBottom>
                                 {title}
                             </Typography>
                             <div className={classes.statsContainer}>
@@ -333,12 +327,11 @@ class ForecastDetails extends Component {
                                     style={{
                                         display: 'flex',
                                         alignItems: 'center'
-                                    }}
-                                >
+                                    }}>
                                     <div className={classes.icon}>
                                         {' '}
                                         <Skycons
-                                            color="white"
+                                            color='white'
                                             icon={`${icon}`}
                                             autoplay={true}
                                         />
@@ -346,59 +339,58 @@ class ForecastDetails extends Component {
 
                                     {this.renderTemperature()}
                                 </div>
-                                <Typography variant="h5" component="h2">
+                                <Typography variant='h5' component='h2'>
                                     {forecast.summary}
                                 </Typography>
                                 <div
                                     className={
                                         classes.weatherIndicatorContainer
-                                    }
-                                >
+                                    }>
                                     <div className={classes.weatherIndicator}>
                                         <i
-                                            className="wi wi-humidity  wi-fw"
+                                            className='wi wi-humidity  wi-fw'
                                             style={{
                                                 fontSize: '35px',
                                                 color: '#ffffff'
                                             }}
                                         />
-                                        <Typography variant="h6" component="h2">
+                                        <Typography variant='h6' component='h2'>
                                             {forecast.humidity}%
                                         </Typography>
                                     </div>
                                     <div className={classes.weatherIndicator}>
                                         <i
-                                            className="wi wi-raindrop  wi-fw"
+                                            className='wi wi-raindrop  wi-fw'
                                             style={{
                                                 fontSize: '35px',
                                                 color: '#ffffff'
                                             }}
                                         />
-                                        <Typography variant="h6" component="h2">
+                                        <Typography variant='h6' component='h2'>
                                             {forecast.precipIntensity} mm/h
                                         </Typography>
                                     </div>
                                     <div className={classes.weatherIndicator}>
                                         <i
-                                            className="wi wi-barometer  wi-fw"
+                                            className='wi wi-barometer  wi-fw'
                                             style={{
                                                 fontSize: '35px',
                                                 color: '#ffffff'
                                             }}
                                         />
-                                        <Typography variant="h6" component="h2">
+                                        <Typography variant='h6' component='h2'>
                                             {forecast.pressure} hPa
                                         </Typography>
                                     </div>
                                     <div className={classes.weatherIndicator}>
                                         <i
-                                            className="wi wi-strong-wind  wi-fw"
+                                            className='wi wi-strong-wind  wi-fw'
                                             style={{
                                                 fontSize: '35px',
                                                 color: '#ffffff'
                                             }}
                                         />
-                                        <Typography variant="h6" component="h2">
+                                        <Typography variant='h6' component='h2'>
                                             {forecast.windSpeed} m/s
                                         </Typography>
                                     </div>
@@ -412,7 +404,7 @@ class ForecastDetails extends Component {
         } else {
             return (
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <CircularProgress color="primary" size={80} />
+                    <CircularProgress color='primary' size={80} />
                 </div>
             );
         }

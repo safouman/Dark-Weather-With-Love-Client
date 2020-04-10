@@ -26,7 +26,7 @@ const styles = theme => ({
 });
 class WeeklyForecastItem extends Component {
     state = {
-        icon: ''
+        icon: 'CLEAR_DAY'
     };
     getIcon(current) {
         switch (current) {
@@ -72,8 +72,7 @@ class WeeklyForecastItem extends Component {
             return (
                 <ExpansionPanel
                     expanded={expanded === time}
-                    onChange={handleChange(time)}
-                >
+                    onChange={handleChange(time)}>
                     <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                         <Typography className={classes.heading}>
                             {new Date(time * 1000).toDateString()}
@@ -84,15 +83,14 @@ class WeeklyForecastItem extends Component {
                         </Typography>
                         <div className={classes.icon}>
                             <Skycons
-                                color="white"
+                                color='white'
                                 icon={icon}
                                 autoplay={false}
                             />
                         </div>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails
-                        style={{ display: 'flex', justifyContent: 'center' }}
-                    >
+                        style={{ display: 'flex', justifyContent: 'center' }}>
                         <ForecastDetails
                             title={new Date(time * 1000).toDateString()}
                             forecast={forecast}
@@ -103,7 +101,7 @@ class WeeklyForecastItem extends Component {
         } else {
             return (
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <CircularProgress color="primary" size={80} />
+                    <CircularProgress color='primary' size={80} />
                 </div>
             );
         }

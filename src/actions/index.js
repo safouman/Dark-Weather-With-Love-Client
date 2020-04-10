@@ -8,9 +8,9 @@ import {
 import Geocode from 'react-geocode';
 import axios from 'axios';
 
-Geocode.setApiKey('AIzaSyDyA4BWuL_v2eDkYCVKUFrBeLRamTx08Mc');
+Geocode.setApiKey(process.env.GOOGLE);
 
-const API = 'https://madewithloveweather.herokuapp.com/api/';
+const API = process.env.API;
 
 export function setCoordinates(coord) {
     return function(dispatch) {
@@ -39,7 +39,7 @@ export function forecastRequest(coord) {
     return function(dispatch) {
         //fetch data
         axios
-            .get(API + 'forecast?lat=' + coord.lat + '&lon=' + coord.lng)
+            .get(API + coord.lat + ',' + coord.lng)
             .then(function(response) {
                 // handle success save data to Redux state
 
@@ -66,15 +66,7 @@ export function timemachineRequest(coord, date) {
         let unixstamp = new Date(date).getTime() / 1000;
 
         axios
-            .get(
-                API +
-                    'timemachine?lat=' +
-                    coord.lat +
-                    '&lon=' +
-                    coord.lng +
-                    '&time=' +
-                    unixstamp
-            )
+            .get(API + coord.lat + ',' + coord.lng + ',' + unixstamp)
 
             .then(function(response) {
                 // handle success save data to Redux state

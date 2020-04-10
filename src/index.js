@@ -15,6 +15,7 @@ const store = createStore(
     rootReducer,
     composeWithDevTools(applyMiddleware(ReduxThunk))
 );
+
 ReactDOM.render(
     <Provider store={store}>
         <MuiThemeProvider theme={theme}>
