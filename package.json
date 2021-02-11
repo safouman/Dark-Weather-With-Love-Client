@@ -28,7 +28,7 @@
         "@date-io/moment": "^1.1.0",
         "@material-ui/core": "^3.9.2",
         "@material-ui/icons": "^3.0.2",
-        "apexcharts": "^3.3.0",
+        "apexcharts": "^3.24.0",
         "axios": "^0.18.1",
         "babel-preset-stage-1": "^6.1.18",
         "dotenv-webpack": "^1.7.0",
